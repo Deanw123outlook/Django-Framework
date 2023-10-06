@@ -1,0 +1,9 @@
+Django Migrations Test Python Shell Commands
+
+Command Line
+> python manage.py shell
+> print("Hello World")
+> from application_name.models import class_name
+> print(class_name.objects.all())
+> print(class_name.objects.all().values())
+> print(class_name.objects.all().values_list())
