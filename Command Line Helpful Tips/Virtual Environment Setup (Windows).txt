@@ -1,0 +1,26 @@
+Virtual Environment Setup (Windows)
+
+
+NOTE - Navigate to where you want to create your project
+Create Virtual Environment
+> python -m venv environment_name
+
+Note - You must activate the virtual environment every time you open the command prompt to work on your project
+
+Activating Virtual Environment:
+> & "c:/Users/xxxx_/OneDrive/Desktop/folder_name/project_name/environment_name/Scripts/Activate.ps1"
+
+ VE Installations
+ > python -m pip install Django
+ > pip install pandas
+ > pip install matplotlib
+ > pip install seaborn
+
+ Check installation: 
+ > django-admin --version
+ > python --version
+ > pip freeze (check env installations)
+
+Deactivating Virtual Environment
+> Deactivate
+
