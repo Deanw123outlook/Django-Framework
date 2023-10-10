@@ -1,0 +1,11 @@
+Models-Templates-Views Paradigm
+
+- Django operates on what is known as (M-T-V)s!
+- Working with Django encompases understanding how these are connected
+
+STEPS
+1 - Import any models we need to use into views.py file
+2 - Use the view to query the model we require data from
+3 - Pass results from model to template
+4 - Pre-define template ready to except & display data from our model
+5 - Map URK to View

@@ -1,0 +1,18 @@
+Python OS Module
+- Python has a built-in OS module for interacting with the operating system, like creating files and directories,
+  management of files and directories, input, output, environment variables, process management etc.
+
+> import os
+- import package
+
+> file = os.path.basename("/my_folder/my_file.txt")
+> print(file)
+- returns name of the file from given path
+
+> file = os.path.dirname(("/my_folder/my_file.txt")
+> print(file)
+- returns directory of file with name of file
+
+> path = "/desktop"
+> print(os.path.join(path,"/my_folder","my_file.txt"
+-  returns a path merged out of multiple path components
