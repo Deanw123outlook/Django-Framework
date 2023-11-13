@@ -1,0 +1,22 @@
+Creating New View (Tips) Existing Django Project
+
+____.html file
+- Create a new html file at the app level that will output our desired task/s
+- Remember to using template tagging to input any details from ex. base level html file
+
+views.py file
+- Define a new function that will pull data from our models.py file and execute the task required
+- Hook this up to our function ex:
+
+  def new_view(request):
+      return (request, 'app_name/(html file created), {})
+  
+  NOTE
+  - Empty dictionary added to retrun function as we continue to build out new view. This will change later to output desried models.py file data (render)
+   onto assigned hmtl.file 
+  
+urls.py file
+- import the new view
+- add this view to URL patterns
+
+These are the first steps in the case when already have app and other views created in our Django project. Above enables us to hook up our (Models | Templates | Views) up for the required tasks/s intial steps. 
