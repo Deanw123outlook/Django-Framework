@@ -1,0 +1,52 @@
+Static Files Information
+Static files are dedicated to javascript, css files, images while media files are meant for content that the user uploads
+• We distinguished MEDIA_ROOT and STATIC_ROOT as separate directories within the static_cdn folder
+• To the STATIC_ROOT will be copied to this directory after running collectstatic command with the purpose to serve all the static files from a single location
+• MEDIA_ROOT will be updated each time a user uploads something to the server
+• Please note that in order to use static files in html, you need to load static at the top and reference it in the place where you use it. See examples below
+
+NOTE
+STATICFILES_DIRS tells Django where to look for additional static files outside of the static folder in the application directory. If apps don’t contain static folders - it will be the place to store static files
+
+
+Setting up Static Files
+settings.py file
+#
+STATIC_URL ='/static/'
+STATICFILES_DIRS = [
+   os.path.join(BASE_DIR, 'static_project')
+]
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn","static_root")
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn","media_root")
+#
+
+urls.py
+#
+from django.conf import settings
+from django.conf.urls.static import static
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#
+
+TERMINAL
+#
+python manage.py collectstatic (run in terminal)
+#
+
+- Create static project folder to store required files. Placeholder for CSS, JS, media files
+
+Adding custom CSS and JS - keep these in our already created static_project folder
+- main.js
+- style.css
+
+We may want to include these files in our base html (base html essentially main html template that other html files will inherit from)
+
+base.html
+#
+<---Custom-CSS--->
+<link rel='stylesheet' type='text/css' href= {% static 'style.css' %}>
+
+<---JS--->
+<script src{% static 'main.js'%}></script>
+#
