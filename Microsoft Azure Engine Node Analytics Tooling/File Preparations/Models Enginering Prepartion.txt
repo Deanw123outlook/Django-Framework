@@ -1,0 +1,55 @@
+Model Preparations Build
+
+Python.ipynb file (data fields)
+0   Date             24999 non-null  datetime64[ns, UTC]
+1   Host             24999 non-null  object             
+2   Service          24999 non-null  object             
+3   EngineNode       24999 non-null  object             
+4   Client           24999 non-null  object             
+5   RequestSize(TB)  24999 non-null  int64              
+6   Seconds          24999 non-null  float64            
+7   Milliseconds     24999 non-null  int64              
+8   Minutes          24999 non-null  float64            
+9   AlertFrequency   24999 non-null  int64  
+
+DJANGO models field types
+0   Date             24999 non-null  DateTimeField()
+1   Host             24999 non-null  CharField(max_length=200)          
+2   Service          24999 non-null  CharField(max_length=200)            
+3   EngineNode       24999 non-null  CharField(max_length=150)          
+4   Client           24999 non-null  CharField(max_length=200)     
+5   RequestSize(TB)  24999 non-null  PositiveSmallIntegerField()             
+6   Seconds          24999 non-null  FloatField()
+7   Milliseconds     24999 non-null  PostiveIntegerField()       
+8   Minutes          24999 non-null  FloatField()         
+9   AlertFrequency   24999 non-null  PrimaryKey()
+
+NOTE
+CharField.max_length
+The maximum length (in characters) of the field. The max_length is enforced at the database level and in Django’s validation using MaxLengthValidator. It’s required for all database backends included with Django except PostgreSQL, which supports unlimited VARCHAR columns.
+
+(sample preapartions models.py - we still need to code this up to see if works)
+
+from django.db import models
+from django.contrib.auth.models import User
+from django.utils import timezone
+
+# Create your models here
+class AzureAnalysis(models.Model):
+    date = models.DateTimeField()
+    host = modles.CharField(max_length=200)  
+    service = modles.CharField(max_length=200)  
+    engine = modles.CharField(max_lenght=150)
+    client = modles.CharField(max_length=200)  
+    request_size = modles.PositiveSmallIntegerField() 
+    seconds = modles.FloatField()
+    milliseconds = modles.PostiveIntegerField()    
+    minutes = modles.FloatField()
+    alert_frequency = PrimaryKey()
+    
+    def __str__(self):
+        return str(self.engine)
+
+
+The above sample code to build our models has not been trialed but will be soon. Once trailed during engineering of tooling we can build this model (db) out
+in which for this specific tyope of tooling the aim is to upload data via CSV file.
