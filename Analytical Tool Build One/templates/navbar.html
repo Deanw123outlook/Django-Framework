@@ -1,0 +1,21 @@
+{% url 'products:main-products-view' as path_to_performance %} {% url
+'products:add-purchase-view' as path_to_adding_records %}
+
+<div class="ui secondary pointing menu">
+  <a class="item"> Home </a>
+  <a
+    href="{{path_to_performance}}"
+    class="{% if request.path == path_to_performance%}active{% endif %} item"
+  >
+    Analytics
+  </a>
+  <a
+    href="{{path_to_adding_records}}"
+    class="item {% if request.path == path_to_adding_records%}active{% endif %}"
+  >
+    Add Data
+  </a>
+  <div class="right menu">
+    <a class="ui item"> Logout </a>
+  </div>
+</div>
