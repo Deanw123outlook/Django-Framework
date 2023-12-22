@@ -1,0 +1,87 @@
+RE_ENGINEERING VIEWS.PY FILE TO HANDLE MORE VISUALIZATIONS
+- The current chart functionality does not transfer to visualizations due to dataframe manipulation essentially x, y & data values.
+- We need to strip out the below re-engineer the views being passed to frontend visualizations
+
+utils.py
+def get_plot(chart_type, *args, **kwargs):
+    # https://matplotlib.org/faq/usage_faq.html?highlight=backend#what-is-a-backend
+    plt.switch_backend('AGG')
+    fig = plt.figure(figsize=(10,4))
+    x = kwargs.get('x')
+    y = kwargs.get('y')
+    data = kwargs.get('data')
+    #
+    if chart_type == 'bar':
+        plt.style.use('ggplot')
+        title = "Total price by day (bar)"
+        plt.title(title)
+        plt.bar(x, y, color = 'r', alpha=0.65)
+        print("bar-plot-executed")
+    #
+    elif chart_type == 'line':
+        plt.style.use('ggplot')
+        title = "Total price by day (line)"
+        plt.title(title)
+        plt.plot(x, y,color = 'g', alpha = 0.65)
+        print("line-plot-executed")
+    #
+    elif chart_type =='kernel':
+        plt.style.use('ggplot')
+        title = "Total price by day (line)"
+        plt.title(title)
+        sns.kdeplot(data)
+    #
+    elif chart_type == 'pie':
+        plt.style.use('ggplot')
+        title = "Total price by day (line)"
+        plt.title(title)
+        plt.pie(data)
+        print("Revisit-Pie-Chart-Code!")
+    #
+    else:
+        plt.style.use('ggplot')
+        title = "product count"
+        plt.title(title)
+        sns.countplot(data, x='name',color = 'b', alpha=0.65)
+        print("count-plot-executed")
+        
+    # apply all charts
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    graph = get_image()
+    return graph
+
+views.py file
+# chart functionality 
+            if chart_type != "": 
+                if date_from != "" and date_to != "":
+                    df = df[(df['date']>date_from) & (df['date']< date_to)]
+                    print("--df--")
+                    print(df)
+                    #
+                    df2 = df.groupby('date', as_index=False)['total_price'].agg('sum')
+                    print("--df2--")
+                    print(df2.head(2))
+                    #
+                    df3 = df.groupby('name', as_index=False)['quantity'].agg('sum')
+                    print("--df3--")
+                    print(df3)
+                # function to get graph
+                graph = get_plot(chart_type, x=df2['date'],y=df2['total_price'],data=df)
+
+
+main.html file
+<div class="field">
+        <label>Data Visualization Type</label>
+        <div class="ui selection dropdown">
+          <input type="hidden" name="sales" />
+          <i class="dropdown icon"></i>
+          <div class="default text">chart type</div>
+          <div class="menu">
+            <div class="item" data-value="bar">bar plot</div>
+            <div class="item" data-value="line">line plot</div>
+            <div class="item" data-value='kernel'>kernel density plot</div>
+            <div class="item" data-value="pie">pie chart</div>
+            <div class="item" data-value="count">count plot</div>
+          </div>
+
