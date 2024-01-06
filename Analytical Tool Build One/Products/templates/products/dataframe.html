@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block title %}performance{% endblock title %}
+{%block content %}
+<h1 class="tool heading">Raw Data Analysis</h1>
+<!--Error-Message-->
+<div class="block-center">
+  {% if message%}
+  <div class="ui negative message">
+    <i class="close icon"></i>
+    <div class = "header">
+    {{ message}} 
+    </div>
+  </div>
+    {% endif %} 
+<div>
+  {{products | safe}}
+  {{purchase | safe}}
+</div>
+<div class="ui modal mymodal">
+  <div class="header">Descriptional Pricing Statistics</div>
+  <div class="ui container">
+    <ul>
+      <li><strong>Total Purchase Events : </strong> {{price.count}}</li>
+      <li><strong>Total Average Price $</strong> {{price.mean|floatformat}}</li>
+      <li><strong>Total Median Price $</strong> {{price.median}}</li>
+      <li><strong>Total Standard Deviation Price $</strong>{{price.std|floatformat}}</li>
+      <li><strong>Total Price Summation $</strong> {{price.sum|floatformat}}</li>
+    </ul>
+  </div>
+</div>
+<div class="block-center">
+  <button class="ui seconday button" id="modal-btn">Descriptive Price Statistics</button>
+  <br>
+  <a href={% url 'products:add-purchase-view'%}><button class='ui positive button'>Add DATABASE Records</button></a>
+  <br>
+  <a href={% url 'products:main-products-view'%}><button class='ui blue button'>Data Visualization Analytics</button></a>
+</div>
+{% endblock content %}
+
+

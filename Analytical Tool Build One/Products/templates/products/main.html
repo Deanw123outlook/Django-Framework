@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {% block title %}performance{% endblock title %}
+{%block content %}
+<h1 class="tool heading">Infastructure Analytics Tooling</h1>
+
+<div class="ui modal mymodal">
+  <div class="header">Descriptional Pricing Statistics</div>
+  <div class="ui container">
+    <ul>
+      <li><strong>Total Purchase Events : </strong> {{price.count}}</li>
+      <li><strong>Total Average Price $</strong> {{price.mean|floatformat}}</li>
+      <li><strong>Total Median Price $</strong> {{price.median}}</li>
+      <li><strong>Total Standard Deviation Price $</strong> {{price.std|floatformat}}</li>
+      <li><strong>Total Price Summation $</strong> {{price.sum|floatformat}}</li>
+    </ul>
+  </div>
+</div>
+
+<div>
+  <div class="block-center">
+    {% if error_message%}
+    <div class="ui negative message">
+      <i class="close icon"></i>
+      <div class = "header">
+      {{ error_message}} 
+      </div>
+    </div>
+      {% endif %} 
+      {% if request.POST %} {%if graph %}
+      <img
+        src="data:image/png;base64, 
+    {{ graph | safe}}" height=400 weight = 500/>
+      {% endif %} {% endif %}
+  </div>
+    <form action="" method="POST" class="ui form">
+      {% csrf_token %}
+      <div class="field">
+        <label>Data Visualization Type</label>
+        <div class="ui selection dropdown">
+          <input type="hidden" name="sales" />
+          <i class="dropdown icon"></i>
+          <div class="default text">chart type</div>
+          <div class="menu">
+            <div class="item" data-value="bar">bar plot</div>
+            <div class="item" data-value="line">line plot</div>
+            <div class="item" data-value='kernel'>kernel density plot</div>
+            <div class="item" data-value="pie">pie chart</div>
+            <div class="item" data-value="count">count plot</div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="two fields">
+          <div class="field">
+            <label>Date From:</label>
+            <input type="Date" name="date_from" />
+          </div>
+          <div class="field">
+            <label>Date To:</label>
+            <input type="Date" name="date_to" />
+          </div>
+        </div>
+      </div>
+      <div class="block-center">
+          <button class="ui primary button" type="submit">Select</button>
+      </div>
+    </form>
+    <div class="block-center">
+      <button class="ui seconday button" id="modal-btn">Descriptive Price Statistics</button>
+      <br>
+      <a href={% url 'products:add-purchase-view'%}><button class='ui positive button'>Add DATABASE Records</button></a>
+    </div>
+  </div>
+  {% endblock content %}
+</div>
+
