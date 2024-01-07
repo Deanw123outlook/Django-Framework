@@ -1,0 +1,23 @@
+RECAP CREATING & SETUP NEW APP
+
+(Terminal)
+- Stop server from running 
+> [Control + C] (windows)
+- ..cd (main folder)
+> python manage.py startapp (appname)
+
+models.py (new app level)
+- Create new model 
+
+admin.py (new app level)
+- Register model
+> from .models import (model)
+> admin.site.register(mdoel)
+
+setting.py (main folder)
+- Install the app
+
+(Terminal)
+> python manage.py makemigrations
+> python manage.py migrate
+> python manage.py runserver (cross check Django admin for new app details created)
