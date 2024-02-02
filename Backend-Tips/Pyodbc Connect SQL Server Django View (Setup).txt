@@ -1,0 +1,73 @@
+Database Name: [AdventureWorksLT2008R2].[SalesLT].[Product]
+Database Table: [SalesLT].[Product]
+Database Table Columns (we wish to pull into Django):
+[ProductID]
+[Name]
+[ProductNumber]
+[Color]
+[StandardCost]
+[ListPrice]
+[Size]
+[Weight]
+
+Database Table: [SalesLT].[SalesOrderDetail]
+Database Table Columns (we wish to pull into Django):
+[SalesOrderID]
+[OrderQty]
+[ProductID]
+[UnitPrice]
+[LineTotal]
+
+
+#
+models.py (file)
+from django.db import models
+
+class productconn(models.Model):
+    ProductID=models.PositiveIntegerField()
+    Name=models.CharField(max_length=120)
+    ProductNumber=modles.PositiveIntegerField()
+    Color=modles.CharField(max_length=25)
+    StandardCost=modles.PositiveIntegerField(blank=True)
+    ListPrice.modles.PositiveIntegerField(blank=True)
+    Size.modles.PositiveIntegerField()
+    Weight.PositiveIntegerField()
+
+    def __str__(self):
+        return str(self.ProductID)
+
+class salesconn(models.Model):
+    SalesOrderID=models.PositiveIntegerField()
+    OrderQty=models.PositiveIntegerField()
+    ProductID=models.PositiveIntegerField()
+    UnitPrice=models.PositiveIntegerField()
+    LineTotal=models.PositiveIntegerField()
+
+    def __str__(self):
+        return str(self.SalesOrderID)
+    
+   
+#
+views.py (file)
+from django.shortcuts import render
+from (app_name).modles import productconn, salesconn
+import pyodbc # open source Python module enables accessing ODBC databases
+
+# conn defined outside function (global scope) usecase in multiple functions 
+conn = pyodbc.connect('Driver={SQL Server};'
+       'Server=LAPTOP-xxxxxx\SQLEXPRESS;'
+       'Database=AdventureWorksLT2008R2;'
+       'Trusted_Connection=yes;')
+
+def sqlconnprod(request): # remember local scope (local to function)
+    cursor=conn.cursor()
+    cursor.execute('SELECT * FROM Product')
+    data=cursor.fetchall() 
+    return render(request,'template.html',{app_name':data})
+
+def sqlsalesconn(request):
+    cursor=conn.cursor()
+    cursor.execute('SELECT * FROM SalesOrderDetail')
+    data=cursor.fetchall()
+    return render(request,'template.html',{app_name':data})
+
