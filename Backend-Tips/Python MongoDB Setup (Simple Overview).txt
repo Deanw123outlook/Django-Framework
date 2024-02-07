@@ -1,0 +1,23 @@
+
+MongoDB
+MongoDB is one of the most popular NoSQL databases and stores data in JSON-like documents. This
+database can be downloaded to your local system or can either can be accessed through MongoDB cloud
+service.
+
+Python can be used in MongoDB database applications and requires a MongoDB driver to access this
+database. PyMongo is a MongoDB database driver and it is recommended to install this driver using
+pip install. This can be done via the command line/terminal being used to run Python.
+> pip install pymongo
+----------------------------------------------------------------------------------------------------
+# import package
+> import pymongo
+
+To create a database in MongoDB, start by creating a MongoClient object, then specify a 
+connection URL with the correct ip address and the name of the database you want to create.
+# create database
+mongoDBclient = pymongo.MongoClient("mongodb://localhost:xxxxx/")
+database = mongoDBclient['database_setup']
+----------------------------------------------------------------------------------------------------
+
+
+
